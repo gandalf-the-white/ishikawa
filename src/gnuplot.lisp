@@ -6,7 +6,7 @@
 (in-package :gnuplot)
 
 (defun save-blobs-for-gnuplot (points labels filepath)
-  ;; Sauvegarde les points et labels dans un fichier texte pour gnuplot.
+  ;; Saves points and labels to a text file for gnuplot.
   (with-open-file (stream filepath
                           :direction :output
                           :if-exists :supersede

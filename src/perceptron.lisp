@@ -18,15 +18,15 @@
    (loss-history :initform nil :accessor loss-history)))
 
 (defun dot-product-list (l1 l2)
-  "Produit scalaire entre deux listes numériques."
+  "The dot product between two numeric lists."
   (reduce #'+ (mapcar #'* l1 l2)))
 
 (defun sigmoid (z)
-  "Fonction sigmoïde standard."
+  "Standard sigmoid function"
   (/ 1.0 (+ 1.0 (exp (- z)))))
 
 (defmethod train ((model logistic-regression) X Y)
-  "Entraîne un modèle de régression logistique sur X (listes) et Y (0/1)."
+  "Trains a logistic regression model on X (lists) and Y (0/1)."
   (let* ((n-features (length (first X)))
          (w (make-list n-features :initial-element 0.0))
          (b 0.0)
@@ -37,7 +37,7 @@
       (let ((grad-w (make-list n-features :initial-element 0.0))
             (grad-b 0.0)
             (n (length X)))
-        ;; Calcul des gradients
+        ;; Calculation of gradients
         (loop for x in X
               for y in Y
               do (let* ((z (+ (dot-product-list w x) b))
@@ -48,7 +48,7 @@
                                                   (* error xi))
                                                 x)))
                    (incf grad-b error)))
-        ;; Mise à jour des paramètres
+        ;; Update settings
         (setf w (mapcar (lambda (wi gwi)
                           (- wi (* eta (/ gwi n))))
                         w grad-w))
@@ -75,7 +75,7 @@
     (/ (- loss) (length X))))
 
 (defmethod log-loss ((model logistic-regression) X Y)
-  "Calcule la log-loss sur les données X et Y."
+  "Calculates the log-loss on the data X and Y."
   (let ((loss 0.0))
     (loop for x in X
           for y in Y
@@ -88,19 +88,19 @@
     (/ (- loss) (length X))))
 
 (defmethod predict-proba ((model logistic-regression) x)
-  "Retourne la probabilité prédite pour le point x."
+  "Returns the predicted probability for point x"
   (sigmoid (+ (dot-product-list (weights model) x)
               (bias model))))
 
 ;; (defmethod predict ((model logistic-regression) x &optional (threshold 0.5))
 (defmethod predict ((model logistic-regression) x)
-  "Retourne 1 si p>=threshold, sinon 0."
+  "Returns 1 if p>=threshold, otherwise 0."
   (if (>= (predict-proba model x) 0.5)
       1
       0))
 
 (defmethod score ((model logistic-regression) X Y)
-  "Retourne la précision (accuracy) du modèle."
+  "Returns the accuracy of the model."
   (let ((correct 0)
         (total (length X)))
     (loop for x in X

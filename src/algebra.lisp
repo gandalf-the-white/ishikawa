@@ -49,21 +49,21 @@
       (error "Incompatible Dimensions for matrix addition."))))
 
 (defun transpose-matrix (matrix)
-  "Retourne la transposée de la matrix donnée.
-   La matrix doit être une liste de listes de même longueur."
+  ;; Returns the transpose of the given matrix.
+  ;; The matrix must be a list of lists of the same length.
   (when (null matrix)
     (return-from transpose-matrix '()))
   (let* ((nb-lignes (length matrix))
          (nb-colonnes (length (first matrix)))
          (transposee (make-array (list nb-colonnes nb-lignes) :initial-element 0)))
-    ;; Vérification que toutes les lignes ont la même longueur
+    ;; Check that all lines have the same length
     (unless (every (lambda (ligne) (= (length ligne) nb-colonnes)) matrix)
       (error "Toutes les lignes de la matrix doivent avoir la même longueur."))
-    ;; Remplissage de la matrix transposée
+    ;; Filling the transposed matrix
     (loop for i from 0 below nb-lignes do
       (loop for j from 0 below nb-colonnes do
         (setf (aref transposee j i) (nth j (nth i matrix)))))
-    ;; Conversion du tableau en liste de listes
+    ;; Converting the array to a list of lists
     (loop for j from 0 below nb-colonnes
           collect
           (loop for i from 0 below nb-lignes
