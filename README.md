@@ -1,55 +1,55 @@
 
 # Table of Contents
 
-1.  [Pseudo-code](#org996b589)
-    1.  [Matrix transpose](#orgafbee16)
-    2.  [Matrix Multiplication](#org07a2c92)
-2.  [Blobs](#org8dea47d)
-    1.  [Objective](#org8b0a8ff)
-3.  [Perceptron](#org7d66751)
-    1.  [Linear function](#org8d4eb44)
-    2.  [Sigmoid function](#org5259659)
-    3.  [Bernoulli](#orga2ce57a)
-4.  [Graphic](#orgb2291e6)
-    1.  [Overview](#org8bc73c6)
-    2.  [Neuron Network](#org332b37f)
-    3.  [Log Loss Convergence](#org5913e7a)
-5.  [Cost function](#orgfbeef6b)
-    1.  [Likelihood (*Vraisemblance*)](#orgc8763c1)
-    2.  [Loss function (Log Loss)](#org1c7e249)
-    3.  [Log Likelihood](#org9f0a892)
-    4.  [Result](#org93f17e0)
-6.  [Gradient descent](#org6e3cc47)
-    1.  [Gradient descent algorithm](#orgd70858e)
-    2.  [Decomposition](#orgb690674)
-    3.  [Calculation of $\frac{\delta \mathcal{L}}{\delta a}$](#org38bbe65)
-    4.  [Calculation of $\frac{\delta a}{\delta z}$](#org40771d2)
-    5.  [Calculation of $\frac{\delta z}{\delta w_1}$](#org36b4290)
-    6.  [Calculation of $\frac{\delta z}{\delta w_2}$](#org60c88d9)
-    7.  [Calculation of $\frac{\delta z}{\delta b}$](#org6bd21fd)
-    8.  [Conclusion for $\frac{\delta \mathcal{L}}{\delta w_1}$](#orgbf45ff4)
-    9.  [Conclusion for $\frac{\delta \mathcal{L}}{\delta w_2}$](#orge02d438)
-    10. [Conclusion for $\frac{\delta \mathcal{L}}{\delta b}$](#orgedc7883)
-    11. [Conclusion](#orgc117fe1)
-7.  [Vector](#orgbbee2e2)
-    1.  [Introduction](#orga57c6db)
-    2.  [Dataset](#org3703141)
-    3.  [Vectorization of A](#org85aeb2f)
-    4.  [Cost function Vectorization](#org33ece96)
-    5.  [Gradient descent Vectorization](#org33d7170)
-    6.  [Gradient Vectorization](#orgddab071)
-8.  [Algorithm](#orga3d4f33)
-    1.  [Overview](#org10acb9c)
-    2.  [Algorithme](#org4dc1660)
+1.  [Pseudo-code](#org7cd6254)
+    1.  [Matrix transpose](#orga188f7c)
+    2.  [Matrix Multiplication](#org6002ed5)
+2.  [Blobs](#org310a16f)
+    1.  [Objective](#orgb21fdee)
+3.  [Perceptron](#org5077bdb)
+    1.  [Linear function](#org9c53af7)
+    2.  [Sigmoid function](#org3802c67)
+    3.  [Bernoulli](#org306237f)
+4.  [Graphic](#org18c2d7c)
+    1.  [Overview](#orgae0887a)
+    2.  [Neuron Network](#orged5c367)
+    3.  [Log Loss Convergence](#orgfc5616b)
+5.  [Cost function](#org18e75c5)
+    1.  [Likelihood (*Vraisemblance*)](#orgf392c87)
+    2.  [Loss function (Log Loss)](#orgf6df4df)
+    3.  [Log Likelihood](#orgdb114da)
+    4.  [Result](#org0a4e532)
+6.  [Gradient descent](#orgdd0483f)
+    1.  [Gradient descent algorithm](#org50a2ee8)
+    2.  [Decomposition](#orgbf797d4)
+    3.  [Calculation of $\frac{\delta \mathcal{L}}{\delta a}$](#org2b3718f)
+    4.  [Calculation of $\frac{\delta a}{\delta z}$](#orgdb206ad)
+    5.  [Calculation of $\frac{\delta z}{\delta w_1}$](#org3dc36f0)
+    6.  [Calculation of $\frac{\delta z}{\delta w_2}$](#org0a84c9e)
+    7.  [Calculation of $\frac{\delta z}{\delta b}$](#org02da616)
+    8.  [Conclusion for $\frac{\delta \mathcal{L}}{\delta w_1}$](#org0b90d73)
+    9.  [Conclusion for $\frac{\delta \mathcal{L}}{\delta w_2}$](#org6987717)
+    10. [Conclusion for $\frac{\delta \mathcal{L}}{\delta b}$](#org160f09e)
+    11. [Conclusion](#orga25525d)
+7.  [Vector](#orga8fe287)
+    1.  [Introduction](#org36739f2)
+    2.  [Dataset](#org64c81df)
+    3.  [Vectorization of A](#org2327933)
+    4.  [Cost function Vectorization](#org0e554bb)
+    5.  [Gradient descent Vectorization](#orge2bc3a5)
+    6.  [Gradient Vectorization](#orgb51bda0)
+8.  [Algorithm](#orgd709270)
+    1.  [Overview](#org942cd83)
+    2.  [Algorithme](#org2c887d0)
 
 
 
-<a id="org996b589"></a>
+<a id="org7cd6254"></a>
 
 # Pseudo-code
 
 
-<a id="orgafbee16"></a>
+<a id="orga188f7c"></a>
 
 ## Matrix transpose
 
@@ -67,7 +67,7 @@
         Return T
 
 
-<a id="org07a2c92"></a>
+<a id="org6002ed5"></a>
 
 ## Matrix Multiplication
 
@@ -93,12 +93,12 @@
         Return result
 
 
-<a id="org8dea47d"></a>
+<a id="org310a16f"></a>
 
 # Blobs
 
 
-<a id="org8b0a8ff"></a>
+<a id="orgb21fdee"></a>
 
 ## Objective
 
@@ -113,78 +113,80 @@ Just a simple example
 ![img](images/blobs.png)
 
 
-<a id="org7d66751"></a>
+<a id="org5077bdb"></a>
 
 # Perceptron
 
 
-<a id="org8d4eb44"></a>
+<a id="org9c53af7"></a>
 
 ## Linear function
 
+![img](images/linear-function.png)
 
-<a id="org5259659"></a>
+
+<a id="org3802c67"></a>
 
 ## Sigmoid function
 
 
-<a id="orga2ce57a"></a>
+<a id="org306237f"></a>
 
 ## Bernoulli
 
 
-<a id="orgb2291e6"></a>
+<a id="org18c2d7c"></a>
 
 # Graphic
 
 
-<a id="org8bc73c6"></a>
+<a id="orgae0887a"></a>
 
 ## Overview
 
 ![img](images/perceptron.png)
 
 
-<a id="org332b37f"></a>
+<a id="orged5c367"></a>
 
 ## Neuron Network
 
 ![img](images/network.png)
 
 
-<a id="org5913e7a"></a>
+<a id="orgfc5616b"></a>
 
 ## Log Loss Convergence
 
 ![img](images/loss.png)
 
 
-<a id="orgfbeef6b"></a>
+<a id="org18e75c5"></a>
 
 # Cost function
 
 
-<a id="orgc8763c1"></a>
+<a id="orgf392c87"></a>
 
 ## Likelihood (*Vraisemblance*)
 
 
-<a id="org1c7e249"></a>
+<a id="orgf6df4df"></a>
 
 ## Loss function (Log Loss)
 
 
-<a id="org9f0a892"></a>
+<a id="orgdb114da"></a>
 
 ## Log Likelihood
 
 
-<a id="org93f17e0"></a>
+<a id="org0a4e532"></a>
 
 ## Result
 
 
-<a id="org6e3cc47"></a>
+<a id="orgdd0483f"></a>
 
 # Gradient descent
 
@@ -192,22 +194,22 @@ This involves adjusting the parameters \textbf{W} and \textbf{b} in order to min
 That is why we calculate the gradient (or derivative) of the \textbf{cost function}.
 
 
-<a id="orgd70858e"></a>
+<a id="org50a2ee8"></a>
 
 ## Gradient descent algorithm
 
 
-<a id="orgb690674"></a>
+<a id="orgbf797d4"></a>
 
 ## Decomposition
 
 
-<a id="org38bbe65"></a>
+<a id="org2b3718f"></a>
 
 ## Calculation of $\frac{\delta \mathcal{L}}{\delta a}$
 
 
-<a id="org40771d2"></a>
+<a id="orgdb206ad"></a>
 
 ## Calculation of $\frac{\delta a}{\delta z}$
 
@@ -216,37 +218,37 @@ Let us choose $h=g \circ f$ with $f(z) = 1+e^{-z}$ and $g(f(z))=\frac{1}{f(z)}$,
 In conclusion, we obtain
 
 
-<a id="org36b4290"></a>
+<a id="org3dc36f0"></a>
 
 ## Calculation of $\frac{\delta z}{\delta w_1}$
 
 
-<a id="org60c88d9"></a>
+<a id="org0a84c9e"></a>
 
 ## Calculation of $\frac{\delta z}{\delta w_2}$
 
 
-<a id="org6bd21fd"></a>
+<a id="org02da616"></a>
 
 ## Calculation of $\frac{\delta z}{\delta b}$
 
 
-<a id="orgbf45ff4"></a>
+<a id="org0b90d73"></a>
 
 ## Conclusion for $\frac{\delta \mathcal{L}}{\delta w_1}$
 
 
-<a id="orge02d438"></a>
+<a id="org6987717"></a>
 
 ## Conclusion for $\frac{\delta \mathcal{L}}{\delta w_2}$
 
 
-<a id="orgedc7883"></a>
+<a id="org160f09e"></a>
 
 ## Conclusion for $\frac{\delta \mathcal{L}}{\delta b}$
 
 
-<a id="orgc117fe1"></a>
+<a id="orga25525d"></a>
 
 ## Conclusion
 
@@ -257,19 +259,19 @@ we obtain the following gradients:
 That mean:
 
 
-<a id="orgbbee2e2"></a>
+<a id="orga8fe287"></a>
 
 # Vector
 
 
-<a id="orga57c6db"></a>
+<a id="org36739f2"></a>
 
 ## Introduction
 
 In mathematics and programming, a column vector is usually represented as a vertical list of elements, enclosed in square brackets or parentheses. In Lisp (and more specifically in Common Lisp), there is no native data type for column vectors as in mathematics or NumPy. However, you can represent a column vector as a simple list, where each element corresponds to a component of the vector.
 
 
-<a id="org3703141"></a>
+<a id="org64c81df"></a>
 
 ## Dataset
 
@@ -284,7 +286,7 @@ For $n=2$, we therefore find that
 or
 
 
-<a id="org85aeb2f"></a>
+<a id="org2327933"></a>
 
 ## Vectorization of A
 
@@ -293,14 +295,14 @@ Reminder
 So, we have
 
 
-<a id="org33ece96"></a>
+<a id="org0e554bb"></a>
 
 ## Cost function Vectorization
 
 The objective is to compare vector $A$ with vector $y$.
 
 
-<a id="org33d7170"></a>
+<a id="orge2bc3a5"></a>
 
 ## Gradient descent Vectorization
 
@@ -311,26 +313,26 @@ So, we can write
 Mathematically, we should rather write  $W_{t+1} = W_t - \alpha \frac{\delta \mathcal{L}} {\delta W}$
 
 
-<a id="orgddab071"></a>
+<a id="orgb51bda0"></a>
 
 ## Gradient Vectorization
 
 and
 
 
-<a id="orga3d4f33"></a>
+<a id="orgd709270"></a>
 
 # Algorithm
 
 
-<a id="org10acb9c"></a>
+<a id="org942cd83"></a>
 
 ## Overview
 
 ![img](images/algorithm.png)
 
 
-<a id="org4dc1660"></a>
+<a id="org2c887d0"></a>
 
 ## Algorithme
 

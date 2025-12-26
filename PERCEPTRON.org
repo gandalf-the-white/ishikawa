@@ -2,11 +2,14 @@
 
 * Perceptron
 ** Linear function
-#+begin_src latex
+#+begin_src latex :file images/linear-function.png :exports results :results output 
 \begin{equation*}
   z=w_1x_1+w_2x_2+b
 \end{equation*}
 #+end_src
+
+[[file:images/linear-function.png]]
+
 ** Sigmoid function
 #+begin_src latex
 \begin{equation*}
