@@ -1,0 +1,51 @@
+#+title: Perceptron
+
+* Blobs
+
+#+begin_src gnuplot :exports results :file images/blobs.png :results output :exports results
+set title "make blobs"
+set xlabel "X"
+set ylabel "Y"
+set key off
+set size ratio -1
+set style fill solid 1.0 border lt -1
+set palette defined (0 "red", 1 "blue", 2 "green", 3 "orange", 4 "purple", 5 "cyan")
+plot "datas/blobs.dat" using 1:2:(0.1):3 with circles lc palette
+#+end_src
+
+#+RESULTS:
+[[file:images/blobs.png]]
+
+#+BEGIN_SRC gnuplot :file images/logistic.png :results output graphics file :exports results
+set title "Régression logistique"
+set palette defined (0 "blue", 0.5 "white", 1 "red")
+w1 = 0.7665
+w2 = 0.7772
+b  = -1.338
+f(x,y) = 1.0 / (1.0 + exp(-(w1*x + w2*y + b)))
+set view 60, 30
+set isosample 50, 50
+set xlabel "x"
+set ylabel "y"
+set zlabel "f(x,y)"
+set ticslevel 0
+set pm3d
+set palette defined (0 "blue", 0.5 "green", 0.8 "yellow", 1 "red")
+splot f(x,y) title "Surface", \
+      "datas/blobs.dat" using 1:2:(f($1,$2)) with points pointtype 7 pointsize 1.5 title "Points"
+#+END_SRC
+
+#+RESULTS:
+[[file:images/logistic.png]]
+
+* Log-loss Evolution
+
+#+BEGIN_SRC gnuplot :file images/loss.png :results output graphics file :exports results
+set title "Convergence de la régression logistique"
+set xlabel "Epoch"
+set ylabel "Log-Loss"
+plot "datas/loss-history.dat" using 1:2 with lines title "log-loss"
+#+END_SRC
+
+#+RESULTS:
+[[file:images/loss.png]]

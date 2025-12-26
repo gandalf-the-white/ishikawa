@@ -1,0 +1,229 @@
+#+title: Vector
+
+* Vector
+** Introduction
+In mathematics and programming, a column vector is usually represented as a vertical list of elements, enclosed in square brackets or parentheses. In Lisp (and more specifically in Common Lisp), there is no native data type for column vectors as in mathematics or NumPy. However, you can represent a column vector as a simple list, where each element corresponds to a component of the vector.
+** Dataset
+Let's take the case of a dataset containing m data points, each of which consists of n parameters (variables).
+#+begin_src latex
+\begin{equation*}
+X=
+\begin{bmatrix}
+    x_1^1  & \dots & x_n^1 \\
+    x_1^2  & \dots & x_n^2 \\
+    \vdots & \dots & \vdots \\
+    x_1^m  & \dots & x_n^m \\
+\end{bmatrix}
+\in \mathbb{R}^{m \times n}
+\end{equation*}
+#+end_src
+and
+#+begin_src latex
+\begin{equation*}
+Y=\begin{bmatrix}
+    y_1 \\
+    y_2 \\
+    \vdots \\
+    y_m
+\end{bmatrix} \in \mathbb{R}^{m \times 1}
+\end{equation*}
+#+end_src
+as well as
+#+begin_src latex
+\begin{equation*}
+Z=\begin{bmatrix}
+    z^1 \\
+    z^2 \\
+    \vdots \\
+    z^n
+\end{bmatrix}
+\end{equation*}
+#+end_src
+For $n=2$, we therefore find that
+#+begin_src latex
+\begin{align*}
+Z&=\begin{bmatrix}
+    z^1 \\
+    z^2 \\
+    \vdots \\
+    z^n
+\end{bmatrix} =
+\begin{bmatrix}
+    w_1x_1^1+w_2x_2^1+b \\
+    w_1x_1^2+w_2x_2^2+b \\
+    \vdots \\
+    w_1x_1^1+w_2x_2^1+b 
+\end{bmatrix}=
+\underbrace{\begin{bmatrix}
+    x_1^1  & x_2^1 \\
+    x_1^2  & x_2^2 \\
+    \vdots & \vdots \\
+    x_1^m  & x_2^m \\
+\end{bmatrix}}_{(m,2)}.
+\underbrace{\begin{bmatrix}
+    w_1 \\
+    w_2
+\end{bmatrix}}_{(2,1)}+
+\underbrace{\begin{bmatrix}
+    b \\
+    b \\
+    \vdots \\
+    b
+\end{bmatrix}}_{(m,1)}\\
+Z&=X.W+b
+\end{align*}
+#+end_src
+or
+#+begin_src latex
+\begin{align*}
+    Z&=\begin{bmatrix}
+    z^1 \\
+    z^2 \\
+    \vdots \\
+    z^n
+\end{bmatrix} =
+\begin{bmatrix}
+    w_1x_1^1+w_2x_2^1+b \\
+    w_1x_1^2+w_2x_2^2+b \\
+    \vdots \\
+    w_1x_1^1+w_2x_2^1+b 
+\end{bmatrix}=
+\underbrace{\begin{bmatrix}
+    w_1 & w_2
+\end{bmatrix}}_{(1,2)}.
+\underbrace{\begin{bmatrix}
+x_1^1 & x_1^2 & \dots & x_1^m \\
+x_2^1 & x_2^2 & \dots & x_2^m
+\end{bmatrix}}_{(2,m)}\\
+Z&=W^TX+b
+\end{align*}
+#+end_src
+** Vectorization of A
+Reminder
+#+begin_src latex
+\begin{equation*}
+    a^i=\sigma(z^i)=\frac{1}{1+e^{-z^i}}
+\end{equation*}
+#+end_src
+So, we have
+#+begin_src latex
+\begin{equation*}
+    A=\begin{bmatrix}
+        a^1 \\
+        a^2 \\
+        \vdots \\
+        a^m
+    \end{bmatrix}=
+    \sigma \begin{pmatrix}\begin{bmatrix}
+    z^1 \\
+    z^2 \\
+    \vdots \\
+    z^m
+    \end{bmatrix}\end{pmatrix}=
+    \sigma(Z)
+\end{equation*}
+#+end_src
+** Cost function Vectorization
+The objective is to compare vector $A$ with vector $y$.
+#+begin_src latex
+\begin{align*}
+    \mathcal{L} &= -\frac{1}{m} \sum_{i=1}^my_ilog(a_i)+(1-y_i)log(1-a_i) \\
+    \mathcal{L} &= -\frac{1}{m} \sum_{i=1}^mylog(A)+(1-y)log(1-A)
+\end{align*}
+#+end_src
+** Gradient descent Vectorization
+Remind
+#+begin_src latex
+\begin{align*}
+    w_1 &= w_1 - \alpha \frac{\delta \mathcal{L}}{\delta w_1}\\
+    w_2 &= w_2 - \alpha \frac{\delta \mathcal{L}}{\delta w_2}\\
+    b &= b - \alpha \frac{\delta \mathcal{L}}{\delta b}    
+\end{align*}
+#+end_src
+So, we can write
+#+begin_src latex
+\begin{align*}
+\begin{bmatrix}
+    w_1 \\
+    w_2
+\end{bmatrix} &=
+\begin{bmatrix}
+    w_1 - \alpha \frac{\delta \mathcal{L}}{\delta w_1} \\
+    w_2 - \alpha \frac{\delta \mathcal{L}}{\delta w_2}
+\end{bmatrix}=
+\begin{bmatrix}
+    w_1 \\
+    w_2
+\end{bmatrix} - \alpha 
+\begin{bmatrix}
+    \frac{\delta \mathcal{L}}{\delta w_1} \\
+    \frac{\delta \mathcal{L}}{\delta w_2}
+\end{bmatrix}=
+W - \alpha \frac{\delta \mathcal{L}}{\delta W}\\
+W &= W - \alpha \frac{\delta \mathcal{L}}{\delta W} \\
+b &= b - \alpha \frac{\delta \mathcal{L}}{\delta b}
+\end{align*}
+#+end_src
+Mathematically, we should rather write  $W_{t+1} = W_t - \alpha \frac{\delta \mathcal{L}} {\delta W}$
+** Gradient Vectorization
+#+begin_src latex
+\begin{align*}
+    \frac{\delta \mathcal{L}}{\delta W} &= 
+    \begin{bmatrix}
+        \frac{\delta \mathcal{L}}{\delta w_2} \\
+        \frac{\delta \mathcal{L}}{\delta w_2}
+    \end{bmatrix}=
+    \begin{bmatrix}
+        -\frac{1}{m} \sum_{i=1}^m(y_i-a_i)x_1^i\\
+        -\frac{1}{m} \sum_{i=1}^m(y_i-a_i)x_2^i
+    \end{bmatrix}=
+    -\frac{1}{m}
+    \begin{bmatrix}
+        \sum_{i=1}^m(y_i-a_i)x_1^i\\
+        \sum_{i=1}^m(y_i-a_i)x_2^i
+    \end{bmatrix}\\
+    \frac{\delta \mathcal{L}}{\delta W} &= 
+    -\frac{1}{m}
+    \underbrace{\begin{bmatrix}
+        x_1^1 & x_1^2 & \dots & x_1^m \\
+        x_2^1 & x_2^2 & \dots & x_2^m 
+    \end{bmatrix}}_{X^T}.
+    \begin{pmatrix}
+        \underbrace{\begin{bmatrix}
+            y_1 \\
+            y_2 \\
+            \vdots \\
+            y_m
+        \end{bmatrix}}_y-
+        \underbrace{\begin{bmatrix}
+            a_1 \\
+            a_2 \\
+            \vdots \\
+            a_m
+        \end{bmatrix}}_A
+    \end{pmatrix}\\
+    \frac{\delta \mathcal{L}}{\delta W} &= -\frac{1}{m}X^T.(y-A)\\
+\end{align*}
+#+end_src
+and
+#+begin_src latex
+\begin{align*}
+    \frac{\delta \mathcal{L}}{\delta b} &= -\frac{1}{m} \sum_{i=1}^m (y^i-a^i)\\
+    \frac{\delta \mathcal{L}}{\delta b} &= -\frac{1}{m} \sum_{i=1}^m
+    \begin{pmatrix}
+        \begin{bmatrix}
+            y^1 \\
+            y^2 \\
+            \vdots \\
+            y^m
+        \end{bmatrix}-
+        \begin{bmatrix}
+            a^1 \\
+            a^2 \\
+            \vdots \\
+            a^m
+        \end{bmatrix}
+    \end{pmatrix}\\
+    \frac{\delta \mathcal{L}}{\delta b} &= -\frac{1}{m} \sum_{i=1}^m (y-A)
+\end{align*}
+#+end_src

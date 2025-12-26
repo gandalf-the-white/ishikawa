@@ -1,0 +1,42 @@
+#+title: Pseudo-Code
+#+header: :exports both :results output
+
+* Pseudo-code
+** Matrix transpose
+#+begin_src ruby
+Function transpose_matrix(M):
+    m = number of rows in M
+    n = number of columns in M
+    T = empty matrix
+
+    For j from 0 to n-1:
+        Initialize row as an empty list
+        For i from 0 to m-1:
+            Append M[i][j] to row
+        Append row to T
+
+    Return T
+#+end_src
+** Matrix Multiplication
+#+begin_src ruby
+Function multiply-matrices(matrix1, matrix2):
+    m = number of rows in matrix1
+    n = number of columns in matrix1
+    p = number of columns in matrix2
+
+    If n ≠ number of rows in matrix2:
+        Return "Error: incompatible dimensions"
+
+    Initialize result as an empty list
+
+    For i from 0 to m-1:
+        Initialize row as an empty list
+        For j from 0 to p-1:
+            sum = 0
+            For k from 0 to n-1:
+                sum = sum + matrix1[i][k] * matrix2[k][j]
+            Append sum to row
+        Append row to result
+
+    Return result
+#+end_src

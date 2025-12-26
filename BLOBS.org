@@ -1,0 +1,24 @@
+#+title: Blobs
+
+* Blobs
+** Objective
+Build a data set with:
++ X: 2D points (or N dimensions)
++ y: cluster label
+Each cluster is centralize around one center with gaussian noise.
+Just a simple example
+#+begin_src gnuplot :exports results :file images/blobs.png :results output
+set title "make blobs"
+set terminal pngcairo 1000,1000 
+set xlabel "X"
+set ylabel "Y"
+set key off
+set size ratio -1
+set style fill solid 1.0 border lt -1
+set palette defined (0 "red", 1 "blue", 2 "green", 3 "orange", 4 "purple", 5 "cyan")
+plot "datas/blobs.dat" using 1:2:(0.05):3 with circles lc palette
+#+end_src
+
+#+RESULTS:
+[[file:images/blobs.png]]
+

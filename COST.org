@@ -1,0 +1,31 @@
+#+title: Cost
+
+* Cost function
+** Likelihood (/Vraisemblance/)
+  #+begin_src latex
+\begin{align*}
+  L &=\prod_{i=1}^mP(Y=y_i)\\
+    &=\prod_{i=1}^ma_i^{y_i}\times(1-a_i)^{1-y_i}
+\end{align*}
+  #+end_src
+** Loss function (Log Loss)
+#+begin_src latex
+\begin{equation*}
+  \mathcal{L}=-\frac{1}{m}\sum_{i=1}^m(y_ilog(a_i)+(1-y)log(1-a_i))
+\end{equation*}
+#+end_src
+** Log Likelihood
+  #+begin_src latex
+\begin{align*}
+    LL &=log(\prod_{i=1}^m(a_i^{y_i}\times(1-a_i)^{1-y_i})\\
+       &=\sum_{i=1}^m(log(a_i^{y_i})+log(1-a_i)^{1-y_i})\\
+       &=\sum_{i=1}^m(y_ilog(a_i)+(1-y_i)log(1-a_i))
+\end{align*}
+  #+end_src
+** Result
+  #+begin_src latex
+\begin{equation*}
+\mathcal{L}=-\frac{1}{m}\times(LL)
+\end{equation*}
+  #+end_src 
+

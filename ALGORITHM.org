@@ -1,0 +1,117 @@
+#+title: Algorithm
+
+* Algorithm
+** Overview
+#+begin_src plantuml :file images/algorithm.png :exports results :results output
+@startuml
+title Entraînement d'un Perceptron (Logistic Regression)
+skinparam DefaultFontName "Arial"
+
+' =========================
+' Entrées globales
+' =========================
+cloud "(X, y)" as DATA
+
+' =========================
+' Initialisation
+' =========================
+rectangle "Initialisation(X)" as INIT 
+
+DATA --> INIT #text:blue : X
+
+' =========================
+' Boucle d'entraînement
+' =========================
+rectangle "Training Loop" as LOOP {
+
+  rectangle "Model(X, W, b)" as MODEL
+  rectangle "Cost(A, y)" as COST
+  rectangle "Gradients(A, X, y)" as GRAD
+  rectangle "Update(W, b, dW, db)" as UPDATE
+
+  MODEL --> COST #text:blue : A
+  MODEL --> GRAD #text:blue : A
+  GRAD --> UPDATE #text:blue : dW, db
+  UPDATE --> MODEL #red;text:blue : W, b
+}
+
+DATA --> MODEL #text:blue : X
+DATA --> COST #text:blue : y
+DATA --> GRAD #text:blue : y
+INIT --> MODEL #text:blue : W, b
+
+' =========================
+' Formules (annotations)
+' =========================
+note right of MODEL
+Z = X · W + b
+A = 1 / (1 + e⁻ᶻ)
+end note
+
+note left of COST
+ℒ = - 1/m Σ [ y log(A)
+      + (1 - y) log(1 - A) ]
+end note
+
+note right of UPDATE
+W = W - α ∂ℒ/∂W
+b = b - α ∂ℒ/∂b
+end note
+
+note right of GRAD
+∂ℒ/∂W = 1/m · Xᵀ (A - y)
+∂ℒ/∂b = 1/m · Σ (A - y)
+end note
+
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:images/algorithm.png]]
+
+** Algorithme
+
+#+begin_src plantuml :file images/algo.png :exports results :results output
+@startuml
+
+start 
+
+:Initialiser poids W et biais b;
+:Initialiser learning-rate;
+:Initialiser loss-history;
+
+repeat
+  :Boucle sur chaque échantillon (x, y);
+
+  :Calcul de la sortie linéaire;
+  note right
+  algebra:dot-product(W, x) + b
+  end note
+
+  :Application de la fonction signe;
+  note right
+  y_pred = sign(output)
+  end note
+
+  if (y_pred == y ?) then (oui)
+    :Pas de mise à jour;
+  else (non)
+    :Calcul de l'erreur;
+    :Mise à jour des poids;
+    note right
+    W = W + lr * y * x
+    b = b + lr * y
+    end note
+  endif
+
+  :Accumuler la loss;
+repeat while (epoch < max-epochs)
+
+:Calcul de la loss moyenne;
+:Ajout à loss-history;
+
+stop
+
+@enduml
+#+end_src
+

@@ -1,0 +1,135 @@
+#+title: Perceptron
+
+* Perceptron
+** Linear function
+#+begin_src latex
+\begin{equation*}
+  z=w_1x_1+w_2x_2+b
+\end{equation*}
+#+end_src
+** Sigmoid function
+#+begin_src latex
+\begin{equation*}
+  a(z)=\frac{1}{1+e^{-z}}
+\end{equation*}
+#+end_src
+** Bernoulli
+#+begin_src latex
+\begin{align*}
+  P(Y=y)&=a(z)^y\times(1-a(z))^{1-y}\\
+  P(Y=0)&=\times(1-a(z))\\
+  P(Y=1)&=a(z)
+\end{align*}
+#+end_src
+* Graphic
+** Overview
+#+begin_src plantuml :file images/perceptron.png :exports results :results output 
+@startuml
+title Perceptron (1 neuron)
+
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam DefaultFontName Arial
+skinparam DefaultFontSize 14
+
+' --- Entrées ---
+rectangle "Inputs" as IN #EFEFEF {
+  [x1] as x1
+  [x2] as x2
+  [x3] as x3
+  [bias=1] as b
+}
+
+' --- Poids ---
+rectangle "Weights" as W #EFEFEF {
+  [w1] as w1
+  [w2] as w2
+  [w3] as w3
+  [wb] as wb
+}
+
+' --- Neurone / Somme pondérée ---
+rectangle "Neuron" as N #D9F2FF {
+  [Σ : z = Σ(wi·xi) + wb·1] as sum
+  [f(z) : threshold function\n(or sigmoid)] as act
+}
+
+' --- Sortie ---
+rectangle "Sortie" as OUT #E6FFE6 {
+  [y] as y
+}
+
+' --- Connexions (entrées -> somme) ---
+x1 --> sum : x1 · w1
+x2 --> sum : x2 · w2
+x3 --> sum : x3 · w3
+b  --> sum : 1 · wb
+
+' --- Connexions (poids -> somme) ---
+w1 ..> sum
+w2 ..> sum
+w3 ..> sum
+wb ..> sum
+
+' --- Activation -> sortie ---
+sum --> act
+act --> y
+
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:images/perceptron.png]]
+
+** Neuron Network
+#+begin_src plantuml :file images/network.png :exports results :results output 
+@startuml NeuralNetwork
+
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+
+rectangle "Input 1 (x₁)" as input1 #EFEFEF 
+rectangle "Input 2 (x₂)" as input2 #EFEFEF
+
+rectangle "Hidden Neuron 1\nσ(w₁₁x₁ + w₂₁x₂ + b₁)" as hidden1 #D9F2FF 
+rectangle "Hidden Neuron 2\nσ(w₁₂x₁ + w₂₂x₂ + b₂)" as hidden2 #D9F2FF 
+rectangle "Hidden Neuron 3\nσ(w₁₃x₁ + w₂₃x₂ + b₃)" as hidden3 #D9F2FF 
+
+rectangle "Output\nσ(w₃₁a₁ + w₃₂a₂ + w₃₃a₃ + b₄)" as output #E6FFE6 
+
+input1 --> hidden1 : w₁₁
+input1 --> hidden2 : w₁₂
+input1 --> hidden3 : w₁₃
+
+input2 --> hidden1 : w₂₁
+input2 --> hidden2 : w₂₂
+input2 --> hidden3 : w₂₃
+
+hidden1 --> output : w₃₁
+hidden2 --> output : w₃₂
+hidden3 --> output : w₃₃
+
+note right of hidden1 : b₁
+note right of hidden2 : b₂
+note right of hidden3 : b₃
+note right of output : b₄
+
+@enduml
+#+end_src
+
+#+RESULTS:
+[[file:images/network.png]]
+
+** Log Loss Convergence
+#+begin_src gnuplot :file images/loss.png :results output :exports results
+set title "Logistic regression convergence"
+set xlabel "Epoch"
+set ylabel "Log-Loss"
+plot "datas/loss-history.dat" using 1:2 with lines title "log-loss"
+#+end_src
+
+#+RESULTS:
+[[file:images/loss.png]]
+
