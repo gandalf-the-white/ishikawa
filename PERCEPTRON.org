@@ -123,10 +123,13 @@ note right of output : b₄
 [[file:images/network.png]]
 
 ** Log Loss Convergence
-#+begin_src gnuplot :file images/loss.png :results output :exports results
+#+begin_src gnuplot :file images/loss.png :exports results :results output
+reset
 set title "Logistic regression convergence"
 set xlabel "Epoch"
 set ylabel "Log-Loss"
+set xrange [0:200]
+set yrange [0:1]
 plot "datas/loss-history.dat" using 1:2 with lines title "log-loss"
 #+end_src
 
