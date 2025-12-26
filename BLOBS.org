@@ -8,6 +8,7 @@ Build a data set with:
 Each cluster is centralize around one center with gaussian noise.
 Just a simple example
 #+begin_src gnuplot :exports results :file images/blobs.png :results output
+reset
 set title "make blobs"
 set terminal pngcairo 1000,1000 
 set xlabel "X"

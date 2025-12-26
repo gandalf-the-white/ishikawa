@@ -126,6 +126,7 @@ note right of output : b₄
 #+begin_src gnuplot :file images/loss.png :exports results :results output
 reset
 set title "Logistic regression convergence"
+set terminal pngcairo 1000,1000 
 set xlabel "Epoch"
 set ylabel "Log-Loss"
 set xrange [0:200]
